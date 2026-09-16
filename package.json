@@ -1,0 +1,9 @@
+{
+  "name": "frequency-brief",
+  "private": true,
+  "description": "Deterministic daily almanac card renderer",
+  "dependencies": {
+    "@fontsource/atkinson-hyperlegible": "^5.0.0",
+    "playwright": "^1.47.0"
+  }
+}
