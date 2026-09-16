@@ -5,5 +5,8 @@
   "dependencies": {
     "@fontsource/atkinson-hyperlegible": "^5.0.0",
     "playwright": "^1.47.0"
+  },
+  "scripts": {
+    "card": "python3 -m frequency_brief && node frequency_brief/screenshot_card.js"
   }
 }

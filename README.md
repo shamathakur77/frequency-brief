@@ -10,16 +10,14 @@ One card a day. Every number on it is worked out, not guessed.
 
 ## The problem
 
-I wanted one answer each morning: when is the good stretch to do focused work,
-and when should I leave things alone.
+<!-- Rewrite this paragraph in your own words before anyone reads it. -->
 
-Getting that answer meant opening four different apps. A sunrise app. A moon
-phase site. A panchang page. A calendar. Two of them disagreed with each other.
-One was clearly making numbers up, because it gave me a different answer on a
-refresh.
+I wanted one answer each morning: when is the good stretch to do focused work,
+and when should I leave it alone. Getting that answer meant checking several
+different places, and they did not agree.
 
 Asking an AI made it worse. It produced times that looked right and were wrong,
-and there was no way to tell which.
+and nothing in the answer told me which was which.
 
 ## Why I built it
 
@@ -40,8 +38,6 @@ it, prove it, and make it fail loudly when it cannot.
 - **Readable at 7am.** Built to a low-stimulation design system so it can be
   understood in a glance, not studied.
 
-![How it works](docs/explainer.png)
-
 ## What you get
 
 Two outputs from one scheduled run:
@@ -54,21 +50,34 @@ Times are computed for Stockholm. Any city works, you change one setting.
 ## How to use it
 
 ```bash
-git clone <this repo>
+git clone https://github.com/shamathakur77/frequency-brief.git
 cd frequency-brief
 
 pip install -r requirements.txt
 npm install
+npx playwright install chromium
 
 # inline the webfont as base64 so rendering never waits on a network call
 python3 tools/build_fonts.py
 
-python3 frequency_brief/build_card_quiet.py
+python3 -m frequency_brief            # today, Stockholm
 node frequency_brief/screenshot_card.js
 ```
 
-The card lands at `out/card.png` at exactly 1080 x 1350. Run it on a schedule
-(cron, GitHub Actions, any task runner) and it produces a fresh card each day.
+The card lands at `out/card.png` at exactly 1080 x 1350.
+
+Other days and places, and the computed values on their own:
+
+```bash
+python3 -m frequency_brief --date 2026-12-21
+python3 -m frequency_brief --location nashik      # or pune
+python3 -m frequency_brief --offline              # skip the fetched sources
+python3 -m frequency_brief --json                 # print the day, render nothing
+```
+
+A GitHub Actions workflow in `.github/workflows/daily.yml` runs the whole thing
+every morning at 05:10 UTC and commits the new card to `docs/card.png`, so the
+image at the top of this README is always the current day.
 
 ---
 
@@ -105,6 +114,7 @@ at 59°N. That is the geometry, not a bug.
 | Null handling | The Abhijit window does not exist on Wednesdays. The card falls back to the longest clear stretch and relabels it |
 | Source failure | A dead feed prints `no data today` rather than a plausible substitute |
 | No repetition | Rendered text is diffed before send, so no time or figure appears twice |
+| Rounded first | Sunrise and sunset are rounded to the minute *before* the eight day-parts are cut from them, so every printed boundary adds back up to the printed sunset |
 
 **Render**
 
@@ -140,21 +150,24 @@ contrast · HTML email that survives real clients · technical writing
 
 ```
 frequency_brief/
-  frameworks.py            five calendar systems, all deterministic
-  build_card_quiet.py      the card
+  day.py                   one date and place -> every value the card needs
+  frameworks.py            the five calendar systems, all deterministic
+  copy.py                  wording tables: values in, plain sentences out
+  render.py                the card, QUIET design tokens
+  sources.py               NOAA Kp and optional headlines, both fail to None
+  __main__.py              the CLI
   build_arch.py            the pipeline diagram
-  build_explain.py         the explainer card
-  screenshot_card.js       Playwright render, 1080x1350
+  screenshot_card.js       Playwright render plus the layout assertion
   screenshot_pipeline.js   Playwright render, 1200x1500
 tools/
   build_fonts.py           inline the webfont as base64
+.github/workflows/
+  daily.yml                the scheduled run
 docs/                      rendered images used in this README
 ```
 
-## Not included
-
-The Vedic timing module (`cosmic_timing.py`) came from elsewhere and is not
-redistributed here. `frameworks.py` runs standalone.
+Nothing in `day.py` reaches the network, so `--offline` is fully reproducible:
+the same date and place always produce the same card.
 
 ## A note on what this is
 
