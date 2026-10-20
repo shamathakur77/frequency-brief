@@ -1,0 +1,352 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>The Daily Frequency</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@500;600;700&family=Bodoni+Moda:opsz,wght@6..96,800;6..96,900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,700;1,6..72,400;1,6..72,500&display=swap">
+<style>
+/* Layout: a broadsheet front page. Wide: lead story beside the almanac, city briefs in three ruled columns, wire beside a digest column. Phone: one column, same order. */
+:root{
+  --paper:#f4f2ec; --ink:#17140f; --ink-2:#56504a; --rule:#17140f; --hair:#c9c4b8;
+  --red:#c2182b; --go:#5f7f63; --coast:#c9a24a; --rest:#b5452f; --wash:#eae6db;
+  --plate:"Bodoni Moda","Bodoni 72","Didot","Times New Roman",serif;
+  --text:"Newsreader","Iowan Old Style","Georgia",serif;
+  --label:"Archivo Narrow","Arial Narrow","Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --paper:#141312; --ink:#efeae0; --ink-2:#aaa398; --rule:#efeae0; --hair:#3b3833;
+  --red:#ff6b61; --go:#86a98a; --coast:#dcb968; --rest:#e07a62; --wash:#1f1d1b; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --paper:#141312; --ink:#efeae0; --ink-2:#aaa398; --rule:#efeae0; --hair:#3b3833;
+  --red:#ff6b61; --go:#86a98a; --coast:#dcb968; --rest:#e07a62; --wash:#1f1d1b; color-scheme:dark }
+body{background:var(--paper);color:var(--ink);font-family:var(--text);font-size:17px;line-height:1.5;
+  padding-inline:18px;padding-block:14px 44px;-webkit-font-smoothing:antialiased}
+.sheet{max-width:1040px;margin-inline:auto}
+a{color:inherit;text-decoration-thickness:1px;text-underline-offset:2px}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+
+.folio{display:flex;justify-content:space-between;gap:12px;font-family:var(--label);font-weight:600;font-size:.74rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+.plate{font-family:var(--plate);font-weight:900;text-align:center;line-height:1;letter-spacing:-.015em;
+  font-size:clamp(2.1rem,10.4vw,5.6rem);margin:10px 0 0;padding-bottom:.24em}
+.dateline{border-top:3px solid var(--rule);box-shadow:0 -5px 0 var(--paper),0 -6px 0 var(--rule);
+  border-bottom:1px solid var(--rule);margin-top:6px;padding:7px 0;display:flex;flex-wrap:wrap;align-items:center;
+  justify-content:space-between;gap:6px 14px;font-family:var(--label);font-weight:600;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase}
+.listen{border:1px solid var(--ink);background:var(--ink);color:var(--paper);border-radius:999px;padding:5px 14px;
+  font-family:var(--label);font-weight:700;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase}
+.status{font-family:var(--label);font-size:.85rem;color:var(--ink-2);margin:8px 0 0;min-height:1.2em}
+.stale{font-family:var(--label);font-weight:600;border:1px solid var(--red);color:var(--red);padding:8px 12px;margin:12px 0 0;font-size:.9rem}
+
+.top{display:grid;grid-template-columns:minmax(0,1fr);gap:22px;margin-top:20px}
+.kicker{font-family:var(--label);font-weight:700;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin:0 0 6px}
+.lead h1{font-weight:700;font-size:clamp(2rem,6.2vw,3.5rem);line-height:1.03;letter-spacing:-.018em;margin:0;text-wrap:balance}
+.standfirst{font-style:italic;font-size:1.22rem;line-height:1.35;margin:12px 0 0;color:var(--ink-2);text-wrap:balance}
+.lead .body{margin:14px 0 0;font-size:1.08rem;max-width:62ch}
+.lead .body::first-letter{font-family:var(--plate);font-weight:900;float:left;font-size:3.5em;line-height:.8;padding:.08em .1em 0 0}
+.src{font-family:var(--label);font-weight:500;font-size:.8rem;letter-spacing:.04em;color:var(--ink-2);white-space:nowrap}
+.lead .src{display:block;margin-top:10px}
+
+.almanac{border-top:3px solid var(--rule);padding-top:10px}
+.h{font-family:var(--label);font-weight:700;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;margin:0}
+.almanac ul{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:7px;font-size:1rem;line-height:1.38}
+.city-time{margin-top:14px;padding-top:10px;border-top:1px solid var(--hair)}
+.city-time .nm{display:flex;justify-content:space-between;gap:10px;font-family:var(--label);font-weight:700;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase}
+.city-time .nm span:last-child{font-weight:500;letter-spacing:.04em;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.ribbon{display:flex;height:9px;margin:7px 0;position:relative}
+.ribbon span{display:block;height:100%}
+.go{background:var(--go)} .coast{background:var(--coast)} .rest{background:var(--rest)}
+.nowmark{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink)}
+.win{display:flex;flex-wrap:wrap;gap:2px 16px;font-size:.98rem;font-variant-numeric:tabular-nums}
+.win b{font-weight:700}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;margin:12px 0 0;padding:0;list-style:none;font-family:var(--label);font-size:.8rem;color:var(--ink-2)}
+.legend i{display:inline-block;width:9px;height:9px;margin-right:5px}
+
+.band{display:flex;align-items:center;gap:14px;margin:30px 0 14px}
+.band::before,.band::after{content:"";flex:1;border-top:1px solid var(--rule)}
+.briefs{list-style:none;margin:0;padding:0;column-count:1;column-gap:30px;column-rule:1px solid var(--hair)}
+.briefs li{break-inside:avoid;padding:0 0 13px;margin:0 0 13px;border-bottom:1px solid var(--hair);font-size:1.04rem;line-height:1.42}
+.briefs li:last-child{border-bottom:0;margin-bottom:0}
+.place{font-family:var(--label);font-weight:700;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;margin-right:.45em}
+.wire .place{color:var(--red)}
+
+.lower{display:grid;grid-template-columns:minmax(0,1fr);gap:26px}
+.digest{display:flex;flex-direction:column;gap:20px}
+.card{background:var(--wash);padding:16px 18px}
+.card p{margin:6px 0 0;line-height:1.42}
+.word{font-family:var(--plate);font-weight:800;font-size:1.5rem;line-height:1.1;margin:6px 0 0;overflow-wrap:anywhere}
+.last{border-top:3px solid var(--rule);padding-top:12px}
+.last q{display:block;font-style:italic;font-weight:500;font-size:1.5rem;line-height:1.22;margin-top:6px;quotes:none;text-wrap:balance}
+
+.band .ghost{margin:0;padding:4px 14px;font-size:.74rem}
+.fam{background:var(--wash);padding:18px;display:grid;grid-template-columns:minmax(0,1fr);gap:18px}
+.fam p{margin:6px 0 0;line-height:1.42}
+.fam .col + .col{border-top:1px solid var(--hair);padding-top:16px}
+.rhyme{font-style:italic;font-size:1.12rem}
+.rhyme span{display:block}
+.sayhint{font-family:var(--label);font-size:.92rem;color:var(--ink-2)}
+.verse{font-style:italic;font-weight:500;font-size:1.22rem;line-height:1.3;text-wrap:balance}
+
+details{border-top:1px solid var(--hair);padding:12px 0;margin-top:26px}
+details + details{margin-top:0}
+summary{cursor:pointer;font-family:var(--label);font-weight:700;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase}
+textarea{width:100%;box-sizing:border-box;min-height:13rem;margin-top:10px;font-family:var(--text);font-size:.95rem;color:var(--ink);
+  background:transparent;border:1px solid var(--hair);padding:10px}
+.ghost{margin-top:10px;border:1px solid var(--ink);background:transparent;color:var(--ink);border-radius:999px;padding:6px 16px;
+  font-family:var(--label);font-weight:700;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase}
+.colophon{border-top:1px solid var(--rule);margin-top:26px;padding-top:10px;font-family:var(--label);font-size:.8rem;color:var(--ink-2);line-height:1.45}
+.speaking{background:color-mix(in srgb,var(--coast) 35%,transparent);box-shadow:0 0 0 3px color-mix(in srgb,var(--coast) 35%,transparent)}
+
+@media (min-width:760px){
+  body{padding-inline:36px;padding-block:22px 56px}
+  .top{grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:30px}
+  .almanac{border-top:0;border-left:1px solid var(--hair);padding:0 0 0 30px}
+  .almanac .h{border-top:3px solid var(--rule);padding-top:8px}
+  .desk .briefs{column-count:3}
+  .lower{grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:30px}
+  .wire .briefs{column-count:2}
+  .fam{grid-template-columns:repeat(3,minmax(0,1fr));gap:0;padding:20px 0}
+  .fam .col{padding:0 24px}
+  .fam .col + .col{border-top:0;padding-top:0;border-left:1px solid var(--hair)}
+}
+:root[data-shot] #fam-play,:root[data-shot] .listen,:root[data-shot] .status,:root[data-shot] details,:root[data-shot] .stale,:root[data-shot] .nowmark{display:none!important}
+</style>
+
+<div class="sheet">
+  <div class="folio"><span id="vol"></span><span>Morning edition</span></div>
+  <div class="plate">The Daily Frequency</div>
+  <div class="dateline"><span id="date"></span><span>Seven cities · three minutes</span>
+    <button class="listen" id="play" type="button" aria-label="Listen to today's edition">Listen</button></div>
+  <p class="status" id="status" aria-live="polite"></p>
+  <p class="stale" id="stale" hidden></p>
+
+  <div class="top">
+    <article class="lead">
+      <p class="kicker" id="l-kicker"></p>
+      <h1 id="l-head"></h1>
+      <p class="standfirst" id="l-stand"></p>
+      <p class="body" id="l-body"></p>
+      <span class="src" id="l-src"></span>
+    </article>
+    <aside class="almanac" aria-labelledby="h-alm">
+      <p class="h" id="h-alm">The Almanac</p>
+      <ul id="alm-lines"></ul>
+      <div id="alm-cities"></div>
+      <ul class="legend"><li><i class="go"></i>Go</li><li><i class="coast"></i>Routine is fine</li><li><i class="rest"></i>Routine only</li></ul>
+    </aside>
+  </div>
+
+  <section class="family" id="fam-sec" aria-labelledby="h-fam">
+    <div class="band"><p class="h" id="h-fam">The Family Minute</p><button class="ghost" id="fam-play" type="button" aria-label="Play the family minute">Play</button></div>
+    <div class="fam">
+      <div class="col"><p class="kicker">Sing it together</p><p class="rhyme" id="rhyme"></p></div>
+      <div class="col"><p class="kicker">Svenska for today</p><p class="word" id="ph-sv" lang="sv"></p><p class="sayhint" id="ph-say"></p><p id="ph-en"></p></div>
+      <div class="col"><p class="kicker">Line for the day</p><p class="verse" id="v-text"></p><p id="v-mean"></p><span class="src" id="v-ref"></span>
+        <p class="kicker" style="margin-top:16px">Picture this</p><p id="pic"></p></div>
+    </div>
+  </section>
+
+  <section class="desk" aria-labelledby="h-desk">
+    <div class="band"><p class="h" id="h-desk">City Desk</p></div>
+    <ul class="briefs" id="cities"></ul>
+  </section>
+
+  <div class="band"><p class="h" id="h-wire">The Wire</p></div>
+  <div class="lower">
+    <section class="wire" aria-labelledby="h-wire"><ul class="briefs" id="wire"></ul></section>
+    <div class="digest">
+      <div class="card" id="word-card"><p class="kicker">Word of the day</p><p class="word" id="word"></p><p id="word-mean"></p></div>
+      <div class="card" id="good-card"><p class="kicker">One good thing</p><p id="good"></p></div>
+      <div class="last"><p class="kicker">The last word</p><q id="line"></q></div>
+    </div>
+  </div>
+
+  <details id="wa-box">
+    <summary>Text edition for WhatsApp</summary>
+    <textarea id="wa" readonly aria-label="Text edition for WhatsApp"></textarea>
+    <button class="ghost" id="copy" type="button">Copy text</button>
+  </details>
+  <details id="mr-box">
+    <summary>Marathi text for the family group</summary>
+    <textarea id="mr" readonly lang="mr" aria-label="Marathi text for the family group"></textarea>
+    <button class="ghost" id="mr-copy" type="button">Copy text</button>
+  </details>
+
+  <p class="colophon" id="colophon"></p>
+</div>
+
+<!-- The Family Minute fills itself from this checked list. The page picks the day's items from the edition date. The morning run never edits this block. -->
+<script type="application/json" id="family-bank">
+{"start":"2026-10-13",
+"breath":{"en":"One big breath in, one big breath out, and smile.","mr":"एक मोठा श्वास घ्या, सोडा आणि हसा."},
+"phrases":[
+{"sv":"God morgon!","say":"goo MOR-ron","en":"Good morning!","mrSay":"गू मॉरॉन","mr":"शुभ सकाळ!"},
+{"sv":"Nu kör vi!","say":"noo shur vee","en":"Let's go!","mrSay":"नू शर वी","mr":"चला, निघूया!"},
+{"sv":"Tack så mycket!","say":"tack so MIK-keh","en":"Thank you very much!","mrSay":"टाक सो मिक्के","mr":"खूप खूप धन्यवाद!"},
+{"sv":"Hur mår du?","say":"hoor mor doo","en":"How are you?","mrSay":"हूर मोर दू","mr":"कसे आहात?"},
+{"sv":"Jag mår bra.","say":"yah mor brah","en":"I feel good.","mrSay":"या मोर ब्रा","mr":"मी मजेत आहे."},
+{"sv":"Ha en bra dag!","say":"hah en brah dahg","en":"Have a good day!","mrSay":"हा एन ब्रा दाग","mr":"तुमचा दिवस चांगला जावो!"},
+{"sv":"Vi ses!","say":"vee sess","en":"See you!","mrSay":"वी सेस","mr":"पुन्हा भेटू!"},
+{"sv":"Varsågod!","say":"var-sho-GOOD","en":"Here you go.","mrSay":"वाशोगूद","mr":"हे घ्या."},
+{"sv":"Hej då!","say":"hey doh","en":"Goodbye!","mrSay":"हेय दो","mr":"बाय बाय!"},
+{"sv":"Vad bra!","say":"vah brah","en":"How nice!","mrSay":"वा ब्रा","mr":"किती छान!"},
+{"sv":"Bra jobbat!","say":"brah YOB-bat","en":"Well done!","mrSay":"ब्रा योब्बात","mr":"शाब्बास!"},
+{"sv":"Jag älskar dig.","say":"yah EL-skar day","en":"I love you.","mrSay":"या एल्स्कार डेय","mr":"माझं तुझ्यावर प्रेम आहे."},
+{"sv":"Lycka till!","say":"LICK-ah till","en":"Good luck!","mrSay":"लिक्का टिल","mr":"शुभेच्छा!"},
+{"sv":"Titta!","say":"TIT-tah","en":"Look!","mrSay":"टिट्टा","mr":"बघ!"}],
+"verses":[
+{"sa":"आ नो भद्राः क्रतवो यन्तु विश्वतः","text":"Aa no bhadrah kratavo yantu vishvatah","meaning":"Let good thoughts come to us from every side.","mr":"चांगले विचार आमच्याकडे सर्व दिशांनी येवोत.","ref":"Rig Veda 1.89.1","refMr":"ऋग्वेद १.८९.१"},
+{"sa":"तमसो मा ज्योतिर्गमय","text":"Tamaso ma jyotir gamaya","meaning":"Lead me from darkness to light.","mr":"मला अंधारातून प्रकाशाकडे ने.","ref":"Brihadaranyaka Upanishad 1.3.28","refMr":"बृहदारण्यक उपनिषद १.३.२८"},
+{"sa":"कर्मण्येवाधिकारस्ते मा फलेषु कदाचन","text":"Karmanye vadhikaraste ma phaleshu kadachana","meaning":"Your right is to the work, never to its fruits.","mr":"तुझा अधिकार फक्त कर्मावर आहे, फळावर कधीच नाही.","ref":"Bhagavad Gita 2.47","refMr":"भगवद्गीता २.४७"},
+{"sa":"समत्वं योग उच्यते","text":"Samatvam yoga uchyate","meaning":"A steady, even mind is called yoga.","mr":"मनाची समता म्हणजेच योग.","ref":"Bhagavad Gita 2.48","refMr":"भगवद्गीता २.४८"},
+{"sa":"सत्यं वद। धर्मं चर।","text":"Satyam vada, dharmam chara","meaning":"Speak the truth. Do what is right.","mr":"खरे बोला. धर्माने वागा.","ref":"Taittiriya Upanishad 1.11","refMr":"तैत्तिरीय उपनिषद १.११"},
+{"sa":"वसुधैव कुटुम्बकम्","text":"Vasudhaiva kutumbakam","meaning":"The whole world is one family.","mr":"संपूर्ण पृथ्वी हे एकच कुटुंब आहे.","ref":"Maha Upanishad, chapter 6","refMr":"महोपनिषद, अध्याय ६"},
+{"sa":"सत्यमेव जयते","text":"Satyameva jayate","meaning":"Truth alone wins.","mr":"सत्याचाच विजय होतो.","ref":"Mundaka Upanishad 3.1.6","refMr":"मुंडक उपनिषद ३.१.६"},
+{"sa":"उद्धरेदात्मनात्मानम्","text":"Uddhared atmanatmanam","meaning":"Lift yourself up by your own self.","mr":"स्वतःच स्वतःचा उद्धार करावा.","ref":"Bhagavad Gita 6.5","refMr":"भगवद्गीता ६.५"},
+{"sa":"एकं सद्विप्रा बहुधा वदन्ति","text":"Ekam sad vipra bahudha vadanti","meaning":"Truth is one. The wise call it by many names.","mr":"सत्य एकच आहे, ज्ञानी लोक त्याला अनेक नावांनी ओळखतात.","ref":"Rig Veda 1.164.46","refMr":"ऋग्वेद १.१६४.४६"},
+{"sa":"मातृदेवो भव। पितृदेवो भव।","text":"Matru devo bhava, pitru devo bhava","meaning":"Honour your mother. Honour your father.","mr":"आईला देव माना. वडिलांना देव माना.","ref":"Taittiriya Upanishad 1.11","refMr":"तैत्तिरीय उपनिषद १.११"}],
+"pictures":[
+{"en":"Bright sunshine on our faces. We feel strong and well.","mr":"आपल्या चेहऱ्यावर लख्ख ऊन पडले आहे. आपण सगळे निरोगी आणि मजबूत आहोत."},
+{"en":"A calm, silver lake. Everyone feels peaceful and safe.","mr":"शांत, चंदेरी तळे. सगळ्यांना शांत आणि सुरक्षित वाटते आहे."},
+{"en":"Strong legs and brave hearts. We can do hard things today.","mr":"मजबूत पाय आणि धीट मन. आज आपण अवघड गोष्टीही करू शकतो."},
+{"en":"Warm gold sunlight fills the whole car.","mr":"सकाळचे सोनेरी ऊन घरभर पसरले आहे, अशी कल्पना करा."},
+{"en":"A big tree full of fruit. There is more than enough for everyone.","mr":"फळांनी लगडलेले मोठे झाड. सगळ्यांसाठी भरपूर आहे."},
+{"en":"One big family hug. Love goes all the way around.","mr":"सगळ्या कुटुंबाची एक घट्ट मिठी. प्रेम सगळ्यांपर्यंत पोहोचते आहे."},
+{"en":"A cosy home, slow and steady. Nothing to rush today.","mr":"उबदार घर, निवांत दिवस. आज कसलीही घाई नाही."}]}
+</script>
+
+<script type="application/json" id="edition">
+{"edition": 6, "date": "2026-10-20", "dateLong": "Tuesday 20 October 2026", "generatedAt": "2026-10-20T11:18:44+02:00", "lead": {"kicker": "Sweden", "headline": "Speaker asks Centre Party leader to explore a centrist government", "standfirst": "A new turn in government talks that have dragged on since the election.", "body": "The speaker of parliament has asked Centre Party leader Elisabeth Thand Ringqvist to examine whether a centrist government is possible, The Local reports. The Sweden Democrats' leader has separately offered the Centre Party talks with no conditions attached. Social Democrat leader Magdalena Andersson lost the first vote on becoming prime minister on 15 October.", "source": "The Local, 19 Oct", "url": "https://www.thelocal.se/"}, "almanac": {"lines": ["Growing moon, day nine, full in six days. Tradition calls it Shukla Navami, with the moon in Shravana.", "Dussehra today, Vijayadashami. The festival of good winning through, and a day for new starts.", "Universal day number four. Structure, order and steady work.", "Human Design sun in Gate 50, values. Care for what is yours to keep."], "cities": [{"name": "Stockholm", "rise": "07:37", "set": "17:27", "best": {"start": "12:12", "end": "12:52"}, "windows": [{"start": "07:37", "end": "10:05", "kind": "go"}, {"start": "10:05", "end": "11:18", "kind": "coast"}, {"start": "11:18", "end": "12:32", "kind": "go"}, {"start": "12:32", "end": "13:46", "kind": "coast"}, {"start": "13:46", "end": "14:59", "kind": "go"}, {"start": "14:59", "end": "16:13", "kind": "rest"}, {"start": "16:13", "end": "17:27", "kind": "go"}]}, {"name": "Nashik", "rise": "06:31", "set": "18:07", "best": {"start": "11:56", "end": "12:42"}, "windows": [{"start": "06:31", "end": "09:25", "kind": "go"}, {"start": "09:25", "end": "10:52", "kind": "coast"}, {"start": "10:52", "end": "12:19", "kind": "go"}, {"start": "12:19", "end": "13:46", "kind": "coast"}, {"start": "13:46", "end": "15:13", "kind": "go"}, {"start": "15:13", "end": "16:40", "kind": "rest"}, {"start": "16:40", "end": "18:07", "kind": "go"}]}]}, "cities": [{"city": "Mumbai", "text": "Thane transport operators protested at the RTO over a 45-day disruption to vehicle fitness testing.", "source": "Free Press Journal, 20 Oct", "url": "https://www.freepressjournal.in/mumbai"}, {"city": "Pune", "text": "Savitribai Phule Pune University has cancelled its exams on 23 October because of the MLC polls.", "source": "Free Press Journal, 20 Oct", "url": "https://www.freepressjournal.in/pune"}, {"city": "Nashik", "text": "Nashik's young people celebrated Navratri with garba, dandiya and fancy dress competitions.", "source": "Free Press Journal, 19 Oct", "url": "https://www.freepressjournal.in/pune"}, {"city": "Nagpur", "text": "Former Vice President Jagdeep Dhankhar arrived in Nagpur for the RSS centenary Vijayadashami celebration.", "source": "Nagpur Today, 19 Oct", "url": "https://www.nagpurtoday.in/"}, {"city": "Austin", "text": "KUT explains Prop I and the other local propositions on Austin's 3 November ballot.", "source": "KUT, 19 Oct", "url": "https://www.kut.org/"}, {"city": "Stockholm", "text": "A switching fault limits blue line trains between Kista and Akalla this morning. Change trains at Kista.", "source": "SVT, 20 Oct", "url": "https://www.svt.se/nyheter/lokalt/stockholm/storningar-pa-bla-linjen-resenarer-maste-byta-tag-vid-kista"}, {"city": "Täby", "text": "The building committee proposes higher waste fees for all customer groups from 1 January 2027, if the council agrees.", "source": "Täby Nytt, 20 Oct", "url": "https://tabynytt.se/kommunalt/stadsbyggnadsnamnden-vill-hoja-avfallstaxan-i-taby-162069"}], "wire": [{"tag": "World", "text": "President Lula held his only debate with Flavio Bolsonaro before Brazil's presidential runoff.", "source": "Democracy Now, 19 Oct", "url": "https://www.democracynow.org/headlines"}, {"tag": "India", "text": "A Maharashtra education scheme lifted girls' law admissions by 1,240, taking their share of enrolment to 43 percent.", "source": "Free Press Journal, 20 Oct", "url": "https://www.freepressjournal.in/mumbai"}, {"tag": "Sweden", "text": "Many people buy clothes they hardly ever wear, and making clothes is often hard on the environment.", "source": "8 Sidor, 19 Oct", "url": "https://8sidor.se/"}, {"tag": "AI", "text": "AI chip startup Tenstorrent raised 1.5 billion dollars at a 6.2 billion dollar valuation to take on Nvidia.", "source": "Tech Startups, 19 Oct", "url": "https://techstartups.com/"}, {"tag": "Sky", "text": "A minor geomagnetic storm is likely today from a coronal hole stream, staying elevated into tomorrow.", "source": "NOAA SWPC, 20 Oct", "url": "https://services.swpc.noaa.gov/text/discussion.txt"}, {"tag": "Sport", "text": "Sweden won three medals at the European Table Tennis Championships, two silver and one bronze.", "source": "8 Sidor, 19 Oct", "url": "https://8sidor.se/"}], "word": {"word": "Sondering", "meaning": "Swedish for sounding things out. In politics, the exploratory talks a party leader holds for the Speaker before a government can be formed."}, "good": {"text": "Children at Majha Ghar in Marathwada are turning marigold farming into life lessons.", "source": "Free Press Journal, 20 Oct", "url": "https://www.freepressjournal.in/pune"}, "line": "Time is abundant.", "whatsapp": "*THE DAILY FREQUENCY*\n_Tuesday 20 October 2026 · No. 6_\n\n*Speaker asks Centre Party leader to explore a centrist government*\nA new turn in government talks that have dragged on since the election.\n\n*ALMANAC*\nDussehra today. Growing moon, day nine, in Shravana, full in six days\nStockholm: best window 12:12 to 12:52, routine only 14:59 to 16:13\nNashik: best window 11:56 to 12:42, routine only 15:13 to 16:40\n\n*CITY DESK*\n*Mumbai* Thane operators protest a 45-day gap in vehicle fitness testing.\n*Pune* SPPU cancels its 23 October exams for the MLC polls.\n*Nashik* Navratri garba, dandiya and fancy dress for the city's youth.\n*Nagpur* Jagdeep Dhankhar in town for the RSS centenary Vijayadashami.\n*Austin* KUT explains Prop I and the local propositions on the 3 November ballot.\n*Stockholm* Blue line limited between Kista and Akalla this morning. Change at Kista.\n*Täby* Higher waste fees proposed from 1 January 2027.\n\n*THE WIRE*\nBrazil: Lula and Flavio Bolsonaro held their only runoff debate.\nIndia: girls' law admissions in Maharashtra up by 1,240 under a state scheme.\nSky: a minor geomagnetic storm likely today, elevated into tomorrow.\n\n_Time is abundant._", "notes": ["10things.news showed no issue list this morning, so the World line comes from Democracy Now.", "thursdai.news releases were dated 15 October, outside the three-day window, so the AI line comes from Tech Startups."]}
+</script>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)}, d;
+  try{ d=JSON.parse($('edition').textContent); }
+  catch(e){ $('l-head').textContent="Today's edition could not be read."; $('l-stand').textContent='Ask Claude to rebuild it.'; return; }
+  var roman=['','I','II','III','IV','V','VI','VII','VIII','IX','X'];
+  function mins(t){var p=String(t).split(':');return (+p[0])*60+(+p[1]);}
+  function el(tag,cls,text){var n=document.createElement(tag); if(cls) n.className=cls; if(text!=null) n.textContent=text; return n;}
+  function src(parent,name,url){ if(!name) return; var s=el('span','src'); s.appendChild(document.createTextNode(' '));
+    if(url){var a=el('a',null,name); a.href=url; a.target='_blank'; a.rel='noopener'; s.appendChild(a);} else s.appendChild(document.createTextNode(name)); parent.appendChild(s); }
+
+  var n=d.edition||1, vol=Math.floor((n-1)/365)+1;
+  $('vol').textContent='Vol. '+(roman[vol]||vol)+' · No. '+n;
+  $('date').textContent=d.dateLong||d.date||'';
+
+  var now=new Date(), pad=function(x){return (x<10?'0':'')+x};
+  var today=now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate()), isToday=(d.date===today);
+  if(!isToday){ $('stale').hidden=false; $('stale').textContent='This is the edition for '+(d.dateLong||d.date)+'. A newer one has not arrived yet.'; }
+
+  var L=d.lead||{};
+  $('l-kicker').textContent=L.kicker||''; $('l-head').textContent=L.headline||''; $('l-stand').textContent=L.standfirst||'';
+  $('l-body').textContent=L.body||''; src($('l-src'),L.source,L.url);
+  ['l-head','l-stand','l-body'].forEach(function(id){ $(id).classList.add('say'); });
+
+  var A=d.almanac||{};
+  (A.lines||[]).forEach(function(t){ var li=el('li',null,null); var s=el('span','say',t); li.appendChild(s); $('alm-lines').appendChild(li); });
+  (A.cities||[]).forEach(function(c,ci){
+    var box=el('div','city-time'), nm=el('div','nm');
+    nm.appendChild(el('span',null,c.name)); nm.appendChild(el('span',null,'Sun '+c.rise+' to '+c.set)); box.appendChild(nm);
+    var w=c.windows||[];
+    if(w.length){
+      var rib=el('div','ribbon'), t0=mins(w[0].start), t1=mins(w[w.length-1].end), span=Math.max(1,t1-t0);
+      rib.setAttribute('role','img'); rib.setAttribute('aria-label','Timing windows in '+c.name);
+      w.forEach(function(x){ var s=el('span',x.kind); s.style.width=((mins(x.end)-mins(x.start))/span*100)+'%'; s.title=x.start+' to '+x.end; rib.appendChild(s); });
+      if(isToday&&ci===0){ var m=now.getHours()*60+now.getMinutes(); if(m>=t0&&m<=t1){ var k=el('i','nowmark'); k.style.left=((m-t0)/span*100)+'%'; rib.appendChild(k);} }
+      box.appendChild(rib);
+    }
+    var win=el('div','win'), rest=(w.filter(function(x){return x.kind==='rest'})[0]);
+    if(c.best){ var a=el('span'); a.appendChild(document.createTextNode('Best ')); a.appendChild(el('b',null,c.best.start+' to '+c.best.end)); win.appendChild(a); }
+    if(rest){ var b=el('span'); b.appendChild(document.createTextNode('Routine only ')); b.appendChild(el('b',null,rest.start+' to '+rest.end)); win.appendChild(b); }
+    box.appendChild(win);
+    var say=el('span','say'); say.hidden=true;
+    say.textContent=c.name+'. '+(c.best?'Best window '+c.best.start+' to '+c.best.end+'. ':'')+(rest?'Routine only from '+rest.start+' to '+rest.end+'.':'');
+    box.appendChild(say); $('alm-cities').appendChild(box);
+  });
+
+  function brief(parent,place,item){ var li=el('li'); li.appendChild(el('span','place',place)); li.appendChild(el('span','say',item.text)); src(li,item.source,item.url); parent.appendChild(li); }
+  (d.cities||[]).forEach(function(c){ brief($('cities'),c.city,c); });
+  (d.wire||[]).forEach(function(w){ brief($('wire'),w.tag,w); });
+
+  if(d.word&&d.word.word){ $('word').textContent=d.word.word; $('word-mean').textContent=d.word.meaning||''; } else $('word-card').hidden=true;
+  if(d.good&&d.good.text){ var g=$('good'); g.appendChild(el('span','say',d.good.text)); src(g,d.good.source,d.good.url); } else $('good-card').hidden=true;
+  $('line').textContent=d.line||''; $('line').classList.add('say');
+  $('wa').value=d.whatsapp||''; if(!d.whatsapp) $('wa-box').hidden=true;
+  $('colophon').textContent='Compiled by Yantra, the paper’s AI desk. Published by Shama. Almanac times are computed for each city. Every news line comes from the named source, read this morning.'+((d.notes&&d.notes.length)?' '+d.notes.join(' '):'');
+
+  // the family minute: picked from the checked list by the edition date
+  var F=null;
+  (function(){
+    try{
+      var B=JSON.parse($('family-bank').textContent), q=String(d.date||'').split('-'), s0=String(B.start).split('-');
+      var dt=new Date(+q[0],q[1]-1,+q[2],12), t0=new Date(+s0[0],s0[1]-1,+s0[2],12);
+      if(isNaN(dt)||isNaN(t0)) throw 0;
+      var i=Math.round((dt-t0)/86400000), at=function(a){return a[((i%a.length)+a.length)%a.length]};
+      var wd=dt.getDay(), day=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][wd];
+      var ph=at(B.phrases), v=at(B.verses), pic=B.pictures[wd];
+      var show=['Good morning, sun! Good morning, sky!','Good morning, birds, flying by!','Click, click, click, our belts go on,','Wave to the house, and off we’re gone!','Today is '+day+', hip hooray!','God morgon, world! Hej, hej, hej!'];
+      var say=show.slice(0,5).concat(['Goo morron, world! Hey, hey, hey!']);
+      var rn=show.map(function(t){ var x=el('span',null,t); $('rhyme').appendChild(x); return x; });
+      $('ph-sv').textContent=ph.sv; $('ph-say').textContent='Say: '+ph.say; $('ph-en').textContent='It means: '+ph.en;
+      $('v-text').textContent=v.text; $('v-mean').textContent=v.meaning; $('v-ref').textContent=v.ref;
+      $('pic').textContent=pic.en+' '+B.breath.en;
+      var dn='०१२३४५६७८९', num=String(dt.getDate()).replace(/\d/g,function(c){return dn[c]});
+      var mrDay=['रविवार','सोमवार','मंगळवार','बुधवार','गुरुवार','शुक्रवार','शनिवार'][wd];
+      var mrMon=['जानेवारी','फेब्रुवारी','मार्च','एप्रिल','मे','जून','जुलै','ऑगस्ट','सप्टेंबर','ऑक्टोबर','नोव्हेंबर','डिसेंबर'][dt.getMonth()];
+      $('mr').value='🌞 शुभ सकाळ!\n'+mrDay+', '+num+' '+mrMon+'\n\nआजचे वचन: "'+v.sa+'"\n('+v.refMr+')\nअर्थ: '+v.mr+'\n\nआजचा स्वीडिश शब्द: '+ph.sv+'\nउच्चार: '+ph.mrSay+'\nअर्थ: '+ph.mr+'\n\nआजचे चित्र: '+pic.mr+' '+B.breath.mr+'\n\nतुमचा दिवस आनंदात जावो!';
+      F={say:say,rn:rn,ph:ph,v:v,pic:pic.en+' '+B.breath.en};
+    }catch(e){ $('fam-sec').hidden=true; $('mr-box').hidden=true; F=null; }
+  })();
+
+  // listen
+  var synth=window.speechSynthesis, playing=false, nodes=[].slice.call(document.querySelectorAll('.say'));
+  function clear(){ [].slice.call(document.querySelectorAll('.speaking')).forEach(function(x){x.classList.remove('speaking')}); }
+  function stop(msg){ if(synth) synth.cancel(); playing=false; clear(); $('play').textContent='Listen'; $('fam-play').textContent='Play'; $('status').textContent=msg||''; }
+  function voice(pre){ var vs=(synth&&synth.getVoices())||[]; return vs.filter(function(x){return x.lang&&x.lang.replace('_','-').toLowerCase().indexOf(pre)===0})[0]||null; }
+  function famScript(){
+    if(!F) return [];
+    var s=[], sv={t:F.ph.sv,n:$('ph-sv'),lang:'sv',rate:0.8}, known=((synth.getVoices()||[]).length>0);
+    F.say.forEach(function(t,i){ s.push({t:t,n:F.rn[i],rate:1,pitch:1.15}); });
+    s.push({t:'Today’s Swedish phrase.'}); s.push(sv); s.push({t:'It means: '+F.ph.en+' Now you.'}); s.push(sv); s.push({t:'One more time.'}); s.push(sv);
+    s.push({t:'The line for the day.'});
+    if(voice('hi')||!known) s.push({t:F.v.sa,n:$('v-text'),lang:'hi',rate:0.85});
+    s.push({t:F.v.meaning,n:$('v-mean')}); s.push({t:'From the '+F.v.ref+'.'});
+    s.push({t:'Picture this. '+F.pic,n:$('pic')});
+    return s;
+  }
+  function newsScript(){ return nodes.map(function(x){ var p=x.previousElementSibling, lead=(p&&p.className==='place')?p.textContent+'. ':''; return {t:lead+x.textContent,n:x}; }); }
+  function run(btn,script,msg){
+    if(!synth||typeof SpeechSynthesisUtterance==='undefined'){ $('status').textContent='This view cannot speak. Open the page in Safari or Chrome and tap Listen there.'; return; }
+    if(playing){ stop(''); return; }
+    synth.cancel(); playing=true; btn.textContent='Stop'; $('status').textContent=msg;
+    var en=null; ['en-gb','en-in','en-us','en'].some(function(l){ en=voice(l); return !!en; });
+    script.forEach(function(s,i){
+      var u=new SpeechSynthesisUtterance(s.t), v=s.lang?voice(s.lang):en;
+      if(v){u.voice=v;u.lang=v.lang;} else u.lang=(s.lang==='sv'?'sv-SE':s.lang==='hi'?'hi-IN':'en-GB');
+      u.rate=s.rate||0.95; if(s.pitch) u.pitch=s.pitch;
+      u.onstart=function(){ clear(); if(s.n&&!s.n.hidden) s.n.classList.add('speaking'); };
+      if(i===script.length-1) u.onend=function(){ if(playing) stop(''); };
+      u.onerror=function(e){ if(e&&e.error&&e.error!=='canceled'&&e.error!=='interrupted') stop('The voice stopped. Tap Listen to start again.'); };
+      synth.speak(u);
+    });
+  }
+  $('play').addEventListener('click',function(){
+    var fam=(synth&&!playing)?famScript():[], s=[{t:'Good morning. This is The Daily Frequency for '+(d.dateLong||'today')+'.'}];
+    if(fam.length) s=s.concat([{t:'First, the family minute.'}],fam,[{t:'Now, the news.'}]);
+    run($('play'),s.concat(newsScript(),[{t:'That is the edition. Have a good day.'}]),'Reading the edition. About four minutes.');
+  });
+  $('fam-play').addEventListener('click',function(){
+    var fam=(synth&&!playing)?famScript():[];
+    run($('fam-play'),[{t:'Good morning! Here is the family minute.'}].concat(fam,[{t:'Have a lovely day.'}]),'Playing the family minute. About one minute.');
+  });
+  window.addEventListener('pagehide',function(){ if(synth) synth.cancel(); });
+
+  function copier(btn,ta){ $(btn).addEventListener('click',function(){
+    var b=$(btn), t=$(ta);
+    function sel(){ t.focus(); t.select(); b.textContent='Selected. Now copy.'; }
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t.value).then(function(){b.textContent='Copied';},sel); } else sel();
+  }); }
+  copier('copy','wa'); copier('mr-copy','mr');
+})();
+</script>
+
+
+</body></html>
