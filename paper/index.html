@@ -109,7 +109,14 @@ textarea{width:100%;box-sizing:border-box;min-height:13rem;margin-top:10px;font-
   .fam .col{padding:0 24px}
   .fam .col + .col{border-top:0;padding-top:0;border-left:1px solid var(--hair)}
 }
-:root[data-shot] #fam-play,:root[data-shot] .listen,:root[data-shot] .status,:root[data-shot] details,:root[data-shot] .stale,:root[data-shot] .nowmark{display:none!important}
+.wirebar{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--hair);padding:8px 0;font-size:.98rem;line-height:1.35;min-height:2.3em}
+.wirebar .place{color:var(--red);flex:none}
+.wirebar .item{transition:opacity 1s ease}
+.wirebar .item.fade{opacity:0}
+@media (prefers-reduced-motion: reduce){.wirebar .item{transition:none}}
+.sound iframe{width:100%;height:152px;border:0;border-radius:12px;display:block;margin-top:10px;background:transparent}
+.motto{text-align:center;font-family:var(--label);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);margin:18px 0 0}
+:root[data-shot] .wirebar,:root[data-shot] .sound,:root[data-shot] #fam-play,:root[data-shot] .listen,:root[data-shot] .status,:root[data-shot] details,:root[data-shot] .stale,:root[data-shot] .nowmark{display:none!important}
 </style>
 
 <div class="sheet">
@@ -119,6 +126,7 @@ textarea{width:100%;box-sizing:border-box;min-height:13rem;margin-top:10px;font-
     <button class="listen" id="play" type="button" aria-label="Listen to today's edition">Listen</button></div>
   <p class="status" id="status" aria-live="polite"></p>
   <p class="stale" id="stale" hidden></p>
+  <div class="wirebar" id="wirebar" hidden><span class="place">On the wire</span><span class="item" id="wirebar-item"></span></div>
 
   <div class="top">
     <article class="lead">
@@ -157,6 +165,7 @@ textarea{width:100%;box-sizing:border-box;min-height:13rem;margin-top:10px;font-
     <div class="digest">
       <div class="card" id="word-card"><p class="kicker">Word of the day</p><p class="word" id="word"></p><p id="word-mean"></p></div>
       <div class="card" id="good-card"><p class="kicker">One good thing</p><p id="good"></p></div>
+      <div class="card sound" id="sound"><p class="kicker">Soundtrack</p><p>High Vibration Deep Work Flow: two hours of 528 Hz, Om chants and theta ambient. <a href="https://open.spotify.com/playlist/336dV1eczVmEVLrlHQeKfH" target="_blank" rel="noopener">Open in Spotify</a></p></div>
       <div class="last"><p class="kicker">The last word</p><q id="line"></q></div>
     </div>
   </div>
@@ -178,6 +187,7 @@ textarea{width:100%;box-sizing:border-box;min-height:13rem;margin-top:10px;font-
   </details>
 
   <p class="colophon" id="colophon"></p>
+  <p class="motto" lang="sa">ॐ · Tat tvam asi · Energy flows where attention goes</p>
 </div>
 
 <!-- The Family Minute fills itself from this checked list. The page picks the day's items from the edition date. The morning run never edits this block. -->
@@ -306,6 +316,23 @@ textarea{width:100%;box-sizing:border-box;min-height:13rem;margin-top:10px;font-
       F={say:say,rn:rn,ph:ph,v:v,pic:pic.en+' '+B.breath.en};
     }catch(e){ $('fam-sec').hidden=true; $('mr-box').hidden=true; F=null; }
   })();
+
+  // quiet wire line: one item at a time, a slow fade every ten seconds, still on hover and with reduced motion
+  (function(){
+    var items=(d.wire||[]).filter(function(w){return w&&w.text}).map(function(w){return (w.tag?w.tag+'. ':'')+w.text});
+    if(!items.length) return;
+    var bar=$('wirebar'), it=$('wirebar-item'), i=0, paused=false; bar.hidden=false; it.textContent=items[0];
+    var still=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(still||items.length<2) return;
+    bar.addEventListener('mouseenter',function(){paused=true}); bar.addEventListener('mouseleave',function(){paused=false});
+    setInterval(function(){ if(paused||document.hidden) return; it.classList.add('fade');
+      setTimeout(function(){ i=(i+1)%items.length; it.textContent=items[i]; it.classList.remove('fade'); },1000); },10000);
+  })();
+  // soundtrack: the Spotify player loads lazily, and only on hosts that allow third-party frames (the link always works)
+  if(location.hostname.indexOf('claude')===-1){
+    var sf=document.createElement('iframe'); sf.src='https://open.spotify.com/embed/playlist/336dV1eczVmEVLrlHQeKfH?utm_source=generator&theme=0';
+    sf.loading='lazy'; sf.title='Soundtrack on Spotify'; sf.allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture'; $('sound').appendChild(sf);
+  }
 
   // listen
   var synth=window.speechSynthesis, playing=false, nodes=[].slice.call(document.querySelectorAll('.say'));
